@@ -1,0 +1,276 @@
+{% extends 'layouts/base.html' %} {% load static %} {% block content %}
+{% load humanize %}
+
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                  Net Income
+                </p>
+                <h5 class="font-weight-bolder mb-0">ETB {{ net_income|floatformat:"-2"|intcomma }}</h5>
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div
+                class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md"
+              >
+                <i
+                  class="ni ni-money-coins text-lg opacity-10"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                  Sales
+                </p>
+                <h5 class="font-weight-bolder mb-0">ETB {{ total_sales|floatformat:"-2"|intcomma }}</h5>
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div
+                class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md"
+              >
+                <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                  Expense
+                </p>
+                <h5 class="font-weight-bolder mb-0">
+                  ETB {{ total_expenses|floatformat:"-2"|intcomma }}
+                </h5>
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div
+                class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md"
+              >
+                <i
+                  class="ni ni-paper-diploma text-lg opacity-10"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                  Users
+                </p>
+                <h5 class="font-weight-bolder mb-0">{{ users}}</h5>
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div
+                class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md"
+              >
+                <i
+                  class="ni ni-world text-lg opacity-10"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-4">
+    <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+      <div class="card">
+        <div class="card-header pb-0">
+          <div class="row">
+            <div class="col-lg-6 col-7">
+              <h6>Bank Accounts</h6>
+              <p class="text-sm mb-0">
+                <i class="fa fa-check text-info" aria-hidden="true"></i>
+                <span class="font-weight-bold ms-1">{{banks.count|floatformat:"-2"|intcomma}} done</span>
+              </p>
+            </div>
+            <div class="col-lg-6 col-5 my-auto text-end">
+              <div class="dropdown float-lg-end pe-4">
+                <a
+                  class="cursor-pointer"
+                  id="dropdownTable"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-ellipsis-v text-secondary"></i>
+                </a>
+                <ul
+                  class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5"
+                  aria-labelledby="dropdownTable"
+                >
+                  <li>
+                    <a
+                      class="dropdown-item border-radius-md"
+                      href="javascript:;"
+                      >Action</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item border-radius-md"
+                      href="javascript:;"
+                      >Another action</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item border-radius-md"
+                      href="javascript:;"
+                      >Something else here</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Bank
+                  </th>
+                  <th
+                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Amount
+                  </th>
+                  <th
+                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Percentage
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for bank in banks %}
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="avatar avatar-sm me-3">
+                        <i
+                          class="ni ni-world text-lg text-primary opacity-10"
+                          aria-hidden="true"
+                        ></i>
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{ bank.bankName }}</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-xs font-weight-bold">
+                      ETB {{ bank.initial|floatformat:"-2"|intcomma }}
+                    </span>
+                  </td>
+                  <td class="align-middle">
+                    <div class="progress-wrapper w-75 mx-auto">
+                      <div class="progress-info">
+                        <div class="progress-percentage">
+                          <span class="text-xs font-weight-bold"
+                            >{{bank.percentage|floatformat:"1"}}%</span
+                          >
+                        </div>
+                      </div>
+                      <div class="progress">
+                        {% with bank_percentage=bank.percentage|floatformat %}
+                        <div
+                          class="progress-bar bg-gradient-info"
+                          role="progressbar"
+                          style="width: {{ bank_percentage }}%;"
+                          aria-valuenow="{{ bank_percentage }}"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                        {% endwith %}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class="card h-100">
+        <div class="card-header pb-0">
+          <h6>Latest Activities</h6>
+          <p class="text-sm">
+            <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
+            <span class="font-weight-bold">Recent</span> 10
+          </p>
+        </div>
+        <div class="card-body p-3">
+          <div class="timeline timeline-one-side">
+            {% for activity in latest_activities %}
+            <div class="timeline-block mb-3">
+              <span class="timeline-step">
+                <i class="ni ni-bell-55 text-success text-gradient"></i>
+              </span>
+              <div class="timeline-content">
+                <h6 class="text-dark text-sm font-weight-bold mb-0">
+                  {{ activity.user }}, {{activity.get_change_message}}
+                  {{activity.content_type }}
+                </h6>
+                <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                  {{ activity.action_time }}
+                </p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "includes/footer.html" %}
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block scripts %} {% endblock scripts %}
